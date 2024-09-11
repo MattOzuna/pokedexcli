@@ -12,7 +12,13 @@ type cliCommand struct {
 }
 
 func commandHelp() error {
-	fmt.Println("help")
+	fmt.Print(`
+Welcome to the Pokedex!
+Usage:
+
+help: Displays a help message
+exit: Exit the Pokedex
+`)
 	return nil
 }
 
