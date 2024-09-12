@@ -11,6 +11,7 @@ func main() {
 	fmt.Print("Pokedex > ")
 
 	commands := getCommands()
+	config := intialize()
 
 	for scanner.Scan() {
 		input := scanner.Text()
@@ -19,7 +20,10 @@ func main() {
 		if !ok {
 			fmt.Println("Invalid command")
 		} else {
-			command.callback()
+			err := command.callback(&config)
+			if err != nil {
+				fmt.Println(err)
+			}
 		}
 		fmt.Print("Pokedex > ")
 	}
