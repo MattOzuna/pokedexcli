@@ -16,9 +16,11 @@ func commandHelp() error {
 Welcome to the Pokedex!
 Usage:
 
-help: Displays a help message
-exit: Exit the Pokedex
 `)
+	for k, v := range getCommands() {
+		fmt.Printf("%s: %s\n", k, v.description)
+	}
+	fmt.Println("")
 	return nil
 }
 
@@ -26,4 +28,19 @@ func commandExit() error {
 	fmt.Println("goodbye!")
 	os.Exit(0)
 	return nil
+}
+
+func getCommands() map[string]cliCommand {
+	return map[string]cliCommand{
+		"help": {
+			name:        "help",
+			description: "Displays a help message",
+			callback:    commandHelp,
+		},
+		"exit": {
+			name:        "exit",
+			description: "Exit the Pokedex",
+			callback:    commandExit,
+		},
+	}
 }
