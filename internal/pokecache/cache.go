@@ -5,37 +5,37 @@ import (
 	"time"
 )
 
-type cache struct {
+type Cache struct {
 	mu           *sync.Mutex
-	cacheEntries map[string]cacheEntry
+	cacheEntries map[string]CacheEntry
 	duration     time.Duration
 }
 
-type cacheEntry struct {
+type CacheEntry struct {
 	createdAt time.Time
 	val       []byte
 }
 
-func NewCache(duration time.Duration) cache {
+func NewCache(duration time.Duration) Cache {
 	ticker := time.NewTicker(duration)
-	newCache := cache{
+	newCache := Cache{
 		mu:           &sync.Mutex{},
-		cacheEntries: map[string]cacheEntry{},
+		cacheEntries: map[string]CacheEntry{},
 		duration:     duration,
 	}
 	go newCache.readLoop(ticker.C)
 	return newCache
 }
 
-func (c *cache) Add(key string, val []byte) {
-	newEntry := cacheEntry{
+func (c *Cache) Add(key string, val []byte) {
+	newEntry := CacheEntry{
 		createdAt: time.Now(),
 		val:       val,
 	}
 	c.cacheEntries[key] = newEntry
 }
 
-func (c *cache) Get(key string) ([]byte, bool) {
+func (c *Cache) Get(key string) ([]byte, bool) {
 	entry, ok := c.cacheEntries[key]
 	if !ok {
 		return nil, false
@@ -43,7 +43,7 @@ func (c *cache) Get(key string) ([]byte, bool) {
 	return entry.val, ok
 }
 
-func (c *cache) readLoop(interval <-chan time.Time) {
+func (c *Cache) readLoop(interval <-chan time.Time) {
 	for range interval {
 		c.mu.Lock()
 		for key, entry := range c.cacheEntries {
