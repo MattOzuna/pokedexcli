@@ -28,6 +28,8 @@ func NewCache(duration time.Duration) Cache {
 }
 
 func (c *Cache) Add(key string, val []byte) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	newEntry := CacheEntry{
 		createdAt: time.Now(),
 		val:       val,
@@ -36,6 +38,8 @@ func (c *Cache) Add(key string, val []byte) {
 }
 
 func (c *Cache) Get(key string) ([]byte, bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	entry, ok := c.cacheEntries[key]
 	if !ok {
 		return nil, false
@@ -44,13 +48,13 @@ func (c *Cache) Get(key string) ([]byte, bool) {
 }
 
 func (c *Cache) readLoop(interval <-chan time.Time) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	for range interval {
-		c.mu.Lock()
 		for key, entry := range c.cacheEntries {
 			if time.Since(entry.createdAt) > c.duration {
 				delete(c.cacheEntries, key)
 			}
 		}
-		c.mu.Unlock()
 	}
 }
