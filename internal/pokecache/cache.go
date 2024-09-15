@@ -48,13 +48,14 @@ func (c *Cache) Get(key string) ([]byte, bool) {
 }
 
 func (c *Cache) readLoop(interval <-chan time.Time) {
-	c.mu.Lock()
 	defer c.mu.Unlock()
 	for range interval {
+		c.mu.Lock()
 		for key, entry := range c.cacheEntries {
 			if time.Since(entry.createdAt) > c.duration {
 				delete(c.cacheEntries, key)
 			}
 		}
+		c.mu.Unlock()
 	}
 }

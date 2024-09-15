@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -15,12 +16,16 @@ func main() {
 
 	for scanner.Scan() {
 		input := scanner.Text()
+		inputs := strings.Split(input, " ")
+		if len(inputs) < 2 {
+			inputs = append(inputs, "")
+		}
 
-		command, ok := commands[input]
+		command, ok := commands[inputs[0]]
 		if !ok {
 			fmt.Println("Invalid command")
 		} else {
-			err := command.callback(&config)
+			err := command.callback(&config, inputs[1])
 			if err != nil {
 				fmt.Println(err)
 			}

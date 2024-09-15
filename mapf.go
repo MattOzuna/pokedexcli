@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func mapf(c *config) error {
+func mapf(c *config, input string) error {
 	reqURL := "https://pokeapi.co/api/v2/location-area"
 	if c.Next != "" {
 		reqURL = c.Next
