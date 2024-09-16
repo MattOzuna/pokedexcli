@@ -13,7 +13,7 @@ type config struct {
 }
 
 func intialize() config {
-	interval := 30 * time.Second
+	interval := 10 * time.Second
 	cache := pokecache.NewCache(interval)
 	return config{
 		Next:     "",

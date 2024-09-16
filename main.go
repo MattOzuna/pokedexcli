@@ -16,7 +16,8 @@ func main() {
 
 	for scanner.Scan() {
 		input := scanner.Text()
-		inputs := strings.Split(input, " ")
+		input = strings.ToLower(input)
+		inputs := strings.Fields(input)
 		if len(inputs) < 2 {
 			inputs = append(inputs, "")
 		}
