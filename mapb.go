@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func mapb(c *config, input string) error {
+func mapb(c *config, input ...string) error {
 	if c.Previous == "" {
 		return fmt.Errorf("unable to get previous locations, type map to get next 20 locations")
 	}

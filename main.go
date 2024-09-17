@@ -11,22 +11,24 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Pokedex > ")
 
-	commands := getCommands()
 	config := intialize()
 
 	for scanner.Scan() {
 		input := scanner.Text()
 		input = strings.ToLower(input)
-		inputs := strings.Fields(input)
-		if len(inputs) < 2 {
-			inputs = append(inputs, "")
+		words := strings.Fields(input)
+
+		commandName := words[0]
+		args := make([]string, len(words)-1)
+		if len(words) > 1 {
+			args = words[1:]
 		}
 
-		command, ok := commands[inputs[0]]
+		command, ok := getCommands()[commandName]
 		if !ok {
 			fmt.Println("Invalid command")
 		} else {
-			err := command.callback(&config, inputs[1])
+			err := command.callback(&config, args...)
 			if err != nil {
 				fmt.Println(err)
 			}

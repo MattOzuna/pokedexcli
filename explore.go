@@ -7,8 +7,8 @@ import (
 	"net/http"
 )
 
-func explore(c *config, input string) error {
-	reqURL := "https://pokeapi.co/api/v2/location-area/" + input
+func explore(c *config, input ...string) error {
+	reqURL := "https://pokeapi.co/api/v2/location-area/" + input[0]
 
 	cacheData, inCache := c.Cache.Get(reqURL)
 	var data LocationRes

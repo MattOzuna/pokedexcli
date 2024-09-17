@@ -8,10 +8,10 @@ import (
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config, string) error
+	callback    func(*config, ...string) error
 }
 
-func commandHelp(c *config, input string) error {
+func commandHelp(c *config, input ...string) error {
 	fmt.Print(`
 Welcome to the Pokedex!
 Usage:
@@ -24,7 +24,7 @@ Usage:
 	return nil
 }
 
-func commandExit(c *config, input string) error {
+func commandExit(c *config, input ...string) error {
 	fmt.Println("goodbye!")
 	os.Exit(0)
 	return nil
