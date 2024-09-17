@@ -26,3 +26,25 @@ type PokemonEncounter struct {
 	Pokemon        NamedAPIResource         `json:"pokemon"`
 	VersionDetails []map[string]interface{} `json:"version_details"`
 }
+
+type Pokemon struct {
+	Name                   string                   `json:"name"`
+	LocationAreaEncounters string                   `json:"location_area_encounters"`
+	Id                     int                      `json:"id"`
+	BaseExperience         int                      `json:"base_experience"`
+	Height                 int                      `json:"height"`
+	IsDefault              bool                     `json:"is_default"`
+	Order                  int                      `json:"order"`
+	Weight                 int                      `json:"weight"`
+	Abilities              []map[string]interface{} `json:"abilities"`
+	Forms                  []map[string]interface{} `json:"forms"`
+	HeldItems              []map[string]interface{} `json:"held_items"`
+	Moves                  []map[string]interface{} `json:"moves"`
+	Species                NamedAPIResource         `json:"species"`
+	Stats                  []map[string]interface{} `json:"stats"`
+	Types                  []map[string]interface{} `json:"types"`
+}
+
+type Pokedex struct {
+	Pokemon []Pokemon
+}

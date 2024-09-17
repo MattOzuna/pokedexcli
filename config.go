@@ -10,6 +10,7 @@ type config struct {
 	Next     string
 	Previous string
 	Cache    pokecache.Cache
+	Pokedex  Pokedex
 }
 
 func intialize() config {
@@ -19,5 +20,8 @@ func intialize() config {
 		Next:     "",
 		Previous: "",
 		Cache:    cache,
+		Pokedex: Pokedex{
+			Pokemon: []Pokemon{},
+		},
 	}
 }
