@@ -41,10 +41,17 @@ type Pokemon struct {
 	HeldItems              []map[string]interface{} `json:"held_items"`
 	Moves                  []map[string]interface{} `json:"moves"`
 	Species                NamedAPIResource         `json:"species"`
-	Stats                  []map[string]interface{} `json:"stats"`
-	Types                  []map[string]interface{} `json:"types"`
+	Stats                  []PokemonStats           `json:"stats"`
+	Types                  []PokemonType            `json:"types"`
 }
 
-type Pokedex struct {
-	Pokemon []Pokemon
+type PokemonStats struct {
+	Stat     NamedAPIResource `json:"stat"`
+	Effort   int              `json:"effort"`
+	BaseStat int              `json:"base_stat"`
+}
+
+type PokemonType struct {
+	Slot int              `json:"slot"`
+	Type NamedAPIResource `json:"type"`
 }

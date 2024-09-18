@@ -10,18 +10,17 @@ type config struct {
 	Next     string
 	Previous string
 	Cache    pokecache.Cache
-	Pokedex  Pokedex
+	Pokedex  map[string]Pokemon
 }
 
 func intialize() config {
 	interval := 10 * time.Second
 	cache := pokecache.NewCache(interval)
+
 	return config{
 		Next:     "",
 		Previous: "",
 		Cache:    cache,
-		Pokedex: Pokedex{
-			Pokemon: []Pokemon{},
-		},
+		Pokedex:  map[string]Pokemon{},
 	}
 }
