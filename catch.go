@@ -36,7 +36,7 @@ func catch(c *config, input ...string) error {
 	}
 
 	c.Pokedex[data.Name] = data
-	fmt.Printf("%s was caught!\n", data.Name)
+	fmt.Printf("%s was caught!\nYou may now inspect it with the inspect command.\n", data.Name)
 
 	return nil
 }
